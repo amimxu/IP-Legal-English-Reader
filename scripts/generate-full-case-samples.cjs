@@ -66,18 +66,12 @@ const legacyEntries =
     ? oldEntries.slice(oldEntries.lastIndexOf("\n  {", legacyEntryIndex))
     : "";
 
-const pdfUri =
-  "file:///C:/Users/wangx/xwechat_files/xuli11_8b8e/msg/file/2026-06/Phillips%20v.%20AWH%20Corp.,%20415%20F.3d%201303%20(Fed.%20Cir.%202005)_20260601133840.pdf";
-
 const fullEntries = [
   {
     id: "ph-full-original",
     title: "Phillips v. AWH Full Opinion",
     group: "1. 英文原文全文（Full English Opinion）",
     text: `#### Phillips v. AWH Corp. 英文原文全文
-
-##### Source PDF
-${pdfUri}
 
 ##### Reading Note
 This full-text opinion is extracted from the PDF you provided. It is now the main reading sample for the case. Click highlighted legal terms to jump back to the core vocabulary section.
@@ -91,9 +85,6 @@ ${english}`,
     title: "Phillips v. AWH 中文译文全文",
     group: "2. 中文译文全文（Full Chinese Translation）",
     text: `#### Phillips v. AWH Corp. 中文译文全文
-
-##### Translation File
-C:\\code\\codex-code\\legeal\\phillips_v_awh_cn_translation.md
 
 ##### Reading Note
 这是你此前已有的完整中文译文，适合与英文原文交替阅读。建议先读程序史和 holding，再回到 claim construction reasoning。
