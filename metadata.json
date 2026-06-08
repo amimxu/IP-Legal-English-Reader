@@ -1,0 +1,6 @@
+{
+  "name": "IP Legal English Reader",
+  "description": "An elegant, interactive learning companion and template center for Intellectual Property Legal English with vocabulary matrix, sentence patterns, and sample contracts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
