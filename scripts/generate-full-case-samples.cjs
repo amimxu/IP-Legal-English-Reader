@@ -13,7 +13,28 @@ function cleanPdfPageMarkers(text) {
     .trim();
 }
 
-const english = cleanPdfPageMarkers(
+function unwrapPdfSoftLineBreaks(text) {
+  return text
+    .split(/\n{2,}/)
+    .map((block) => {
+      const lines = block
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
+
+      if (lines.length <= 1) {
+        return lines.join("");
+      }
+
+      return lines.join(" ");
+    })
+    .join("\n\n")
+    .replace(/([。！？；])\s+(?=[“”《（\u4e00-\u9fff])/g, "$1\n\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+const english = unwrapPdfSoftLineBreaks(cleanPdfPageMarkers(
   fs
     .readFileSync(path.join(root, "phillips_v_awh_extracted.txt"), "utf8")
     .replace(/\u00a7/g, "§")
@@ -23,14 +44,14 @@ const english = cleanPdfPageMarkers(
     .split("\n")
     .map((line) => line.trimEnd())
     .join("\n")
-);
+));
 
-const chinese = cleanPdfPageMarkers(
+const chinese = unwrapPdfSoftLineBreaks(cleanPdfPageMarkers(
   fs
     .readFileSync(path.join(root, "phillips_v_awh_cn_translation.md"), "utf8")
     .replace(/\r\n/g, "\n")
     .replace(/\r/g, "\n")
-)
+))
   .trim();
 
 const old = fs.readFileSync(oldPath, "utf8");

@@ -1144,7 +1144,7 @@ export default function App() {
                 <div 
                   onClick={handleContractClick}
                   dangerouslySetInnerHTML={{ __html: highlightContractText(samplesData.find(d => d.id === activeDocId)?.text || "") }}
-                  className="prose prose-stone max-w-none whitespace-pre-wrap text-stone-800 text-base md:text-[17px] leading-relaxed"
+                  className="prose prose-stone max-w-none text-stone-800 text-base md:text-[17px] leading-relaxed"
                 />
               </div>
             </motion.div>
