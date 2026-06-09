@@ -13,9 +13,7 @@ import {
   Trophy, 
   GraduationCap, 
   ArrowRight,
-  BookmarkCheck,
   CheckCircle2,
-  Calendar,
   Layers,
   Sparkles
 } from "lucide-react";
@@ -27,13 +25,20 @@ import { phillipsCasePatternsData as patternsData } from "./data/phillipsCasePat
 import { phillipsCaseSamplesData as samplesData } from "./data/phillipsCaseSamplesData";
 import { litigationEnglishData } from "./data/litigationEnglishData";
 import { britishPhonetics } from "./data/britishPhonetics";
+import { phillipsTermDefinitionNotes } from "./data/phillipsTermDefinitionNotes";
 import { quizQuestions, matchItems, translationExercises, codeSampleQuiz } from "./data/exercisesData";
-import { Term, SentencePattern, QuizQuestion, UserCustomTerm } from "./types";
+import { Term, SentencePattern, QuizQuestion } from "./types";
 
 const termsData = [...phillipsCaseTermsData, ...legacyTermsData];
 
 const displayPhonetic = (term: { eng: string; phonetic: string }) =>
   britishPhonetics[term.eng.toLowerCase()] ?? term.phonetic;
+
+const getDefinitionNote = (term: Term) =>
+  phillipsTermDefinitionNotes[term.eng] ?? {
+    common: `${term.ch}。`,
+    legal: term.proTip || term.definition,
+  };
 
 export default function App() {
   // Navigation tabs of the main editorial bar
@@ -83,18 +88,6 @@ export default function App() {
   const [showDailyBrief, setShowDailyBrief] = useState<boolean>(false);
   const [dailyTerms, setDailyTerms] = useState<Term[]>([]);
   const [flippedBriefIndex, setFlippedBriefIndex] = useState<number | null>(null);
-
-  // Custom User Glossary state
-  const [customGlossary, setCustomGlossary] = useState<UserCustomTerm[]>(() => {
-    const saved = localStorage.getItem("ip_legal_custom_glossary");
-    return saved ? JSON.parse(saved) : [];
-  });
-  const [newWordEng, setNewWordEng] = useState("");
-  const [newWordCh, setNewWordCh] = useState("");
-  const [newWordPhonetic, setNewWordPhonetic] = useState("");
-  const [newWordDef, setNewWordDef] = useState("");
-  const [newWordEx, setNewWordEx] = useState("");
-  const [glossaryShowForm, setGlossaryShowForm] = useState(false);
 
   // Update favorites to localStorage
   const toggleFavorite = (termId: string) => {
@@ -151,37 +144,6 @@ export default function App() {
       setSelectedTerm(filteredTerms[0]);
     }
   }, [selectedLesson, selectedGroup]);
-
-  // Handle addition of custom words
-  const handleAddCustomWord = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newWordEng || !newWordCh) return;
-    const newTerm: UserCustomTerm = {
-      id: "custom-" + Date.now(),
-      eng: newWordEng,
-      ch: newWordCh,
-      pos: "n.",
-      phonetic: newWordPhonetic || "/custom/",
-      definition: newWordDef || "User defined custom legal term.",
-      example: newWordEx || "No example provided."
-    };
-    const updated = [newTerm, ...customGlossary];
-    setCustomGlossary(updated);
-    localStorage.setItem("ip_legal_custom_glossary", JSON.stringify(updated));
-    setNewWordEng("");
-    setNewWordCh("");
-    setNewWordPhonetic("");
-    setNewWordDef("");
-    setNewWordEx("");
-    setGlossaryShowForm(false);
-  };
-
-  // Delete custom word
-  const handleDeleteCustomWord = (id: string) => {
-    const updated = customGlossary.filter(w => w.id !== id);
-    setCustomGlossary(updated);
-    localStorage.setItem("ip_legal_custom_glossary", JSON.stringify(updated));
-  };
 
   // Handle blanks checking
   const checkBlanksAnswers = () => {
@@ -396,6 +358,8 @@ export default function App() {
     }
   };
 
+  const selectedTermDefinitionNote = getDefinitionNote(selectedTerm);
+
   return (
     <div className="legal-reader min-h-screen bg-stone-50/50 flex flex-col antialiased">
       {/* 1. Header (Aesthetic Top Bar from Image) */}
@@ -408,10 +372,6 @@ export default function App() {
             <h1 className="text-sm font-bold tracking-widest text-brand-blue font-sans uppercase">
               AI Study Companion
             </h1>
-            <div className="flex items-center space-x-1 text-[11px] text-gray-400 font-mono">
-              <Calendar className="h-3 w-3" />
-              <span>2026.05.24</span>
-            </div>
           </div>
         </div>
 
@@ -596,10 +556,16 @@ export default function App() {
                     <h4 className="text-base font-bold text-[#1E3A8A] uppercase tracking-wider mb-2">
                       中文释义 / Chinese Translation
                     </h4>
-                    <p className="text-base md:text-[17px] text-slate-900 font-semibold leading-relaxed p-4 bg-slate-50 border border-slate-100/80 rounded-xl">
-                      <span className="font-bold text-brand-cyan">{selectedTerm.ch} </span>
-                      — 该术语在知识产权领域的核心定义为：<strong>{selectedTerm.ch}</strong>。它代表着专属于其持有人的民事或诉讼法律利益，可依法定程序请求排他或执行。
-                    </p>
+                    <div className="text-base md:text-[17px] text-slate-900 leading-relaxed p-4 bg-slate-50 border border-slate-100/80 rounded-xl space-y-2">
+                      <p>
+                        <span className="font-bold text-brand-cyan">常用义：</span>
+                        {selectedTermDefinitionNote.common}
+                      </p>
+                      <p>
+                        <span className="font-bold text-brand-cyan">知识产权/诉讼语境：</span>
+                        {selectedTermDefinitionNote.legal}
+                      </p>
+                    </div>
                   </div>
 
                   {/* 6. Usage with bold highlight */}
@@ -721,101 +687,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Additional Study Glossary Widget (User Custom Words) */}
-                <div className="bg-white p-6 rounded-2xl border border-gray-200/60 shadow-sm">
-                  <div className="flex items-center justify-between mb-4 pb-2 border-b border-gray-100">
-                    <div className="flex items-center space-x-1.5">
-                      <BookmarkCheck className="h-4 w-4 text-brand-cyan" />
-                      <h4 className="text-xs font-bold text-brand-blue tracking-wide uppercase">
-                        My Custom Glossary ({customGlossary.length})
-                      </h4>
-                    </div>
-
-                    <button 
-                      onClick={() => setGlossaryShowForm(!glossaryShowForm)}
-                      className="text-xs text-brand-cyan font-bold hover:underline"
-                    >
-                      {glossaryShowForm ? "Cancel" : "+ Add Word"}
-                    </button>
-                  </div>
-
-                  {glossaryShowForm && (
-                    <form onSubmit={handleAddCustomWord} className="space-y-2 mb-4 bg-gray-50/50 p-3 rounded-xl border border-gray-100">
-                      <div className="grid grid-cols-2 gap-2">
-                        <input 
-                          type="text" 
-                          placeholder="English term" 
-                          required
-                          value={newWordEng} 
-                          onChange={(e) => setNewWordEng(e.target.value)}
-                          className="px-2 py-1 bg-white border border-gray-200 text-xs rounded outline-none"
-                        />
-                        <input 
-                          type="text" 
-                          placeholder="Chinese" 
-                          required
-                          value={newWordCh} 
-                          onChange={(e) => setNewWordCh(e.target.value)}
-                          className="px-2 py-1 bg-white border border-gray-200 text-xs rounded outline-none"
-                        />
-                      </div>
-                      <input 
-                        type="text" 
-                        placeholder="Phonetics, e.g. /pæt.nt/" 
-                        value={newWordPhonetic} 
-                        onChange={(e) => setNewWordPhonetic(e.target.value)}
-                        className="w-full px-2 py-1 bg-white border border-gray-200 text-xs rounded outline-none"
-                      />
-                      <textarea 
-                        placeholder="English definition" 
-                        rows={2}
-                        value={newWordDef} 
-                        onChange={(e) => setNewWordDef(e.target.value)}
-                        className="w-full px-2 py-1 bg-white border border-gray-200 text-xs rounded outline-none"
-                      />
-                      <input 
-                        type="text" 
-                        placeholder="Usage example sentence" 
-                        value={newWordEx} 
-                        onChange={(e) => setNewWordEx(e.target.value)}
-                        className="w-full px-2 py-1 bg-white border border-gray-200 text-xs rounded outline-none"
-                      />
-                      <button 
-                        type="submit" 
-                        className="w-full bg-brand-cyan text-white text-xs font-bold py-1.5 rounded transition"
-                      >
-                        Submit Gloss Word
-                      </button>
-                    </form>
-                  )}
-
-                  <div className="space-y-2 max-h-[140px] overflow-y-auto">
-                    {customGlossary.length === 0 ? (
-                      <p className="text-center py-4 text-xs text-gray-400">
-                        No custom terms saved. Click Add Word above to record your own legal definitions.
-                      </p>
-                    ) : (
-                      customGlossary.map((word) => (
-                        <div key={word.id} className="p-2 border border-gray-150 rounded bg-gray-50/30 flex items-center justify-between text-xs">
-                          <div>
-                            <span className="font-semibold text-brand-blue">{word.eng}</span>
-                            <span className="text-gray-500 text-sm mx-1">({displayPhonetic(word)})</span>
-                            <span className="text-gray-600 block text-[10px] mb-0.5">{word.ch}</span>
-                            <p className="text-[10px] text-gray-400 italic font-serif truncate max-w-[200px]" title={word.definition}>
-                              {word.definition}
-                            </p>
-                          </div>
-                          <button 
-                            onClick={() => handleDeleteCustomWord(word.id)}
-                            className="text-gray-300 hover:text-brand-accent transition p-1"
-                          >
-                            <X className="h-3 w-3" />
-                          </button>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </div>
               </div>
             </motion.div>
           )}
@@ -1125,7 +996,7 @@ export default function App() {
                     How it works
                   </span>
                   <p className="text-sm text-stone-700 leading-relaxed">
-                    Key legal English phrases are marked with <span className="border-b border-dashed border-brand-cyan font-bold">dashed highlights</span>. Click a highlighted phrase to open its entry in the core vocabulary section.
+                    Key legal English phrases are marked with <span className="border-b border-dashed border-brand-cyan font-bold">dashed highlights</span> and correspond to entries in the core vocabulary section.
                   </p>
                 </div>
               </div>

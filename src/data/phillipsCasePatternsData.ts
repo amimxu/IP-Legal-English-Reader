@@ -342,5 +342,95 @@ export const phillipsCasePatternsData: SentencePattern[] = [
     trans: "“挡板”一词不是一个由说明书填入结构的纯粹功能性占位符。",
     usage: "placeholder 可译“占位符”；filled in by the specification = 由说明书补足。",
     category: "11. means-plus-function"
+  },
+  {
+    id: "ph-pattern-39",
+    pattern: "The words of a claim are generally given their ordinary and customary meaning.",
+    chPattern: "权利要求中的词语通常赋予其通常和惯常含义",
+    example: "We have frequently stated that the words of a claim are generally given their ordinary and customary meaning.",
+    trans: "本院曾多次指出，权利要求中的词语通常应赋予其通常和惯常含义。",
+    usage: "这是 Phillips 中权利要求解释的出发句，ordinary and customary meaning 不宜译成“普通意思”，应译成“通常和惯常含义”。",
+    category: "12. 权利要求解释总则"
+  },
+  {
+    id: "ph-pattern-40",
+    pattern: "The meaning is the meaning that the term would have to a person of ordinary skill in the art.",
+    chPattern: "该含义是本领域普通技术人员会赋予该术语的含义",
+    example: "The ordinary and customary meaning of a claim term is the meaning that the term would have to a person of ordinary skill in the art.",
+    trans: "权利要求术语的通常和惯常含义，是本领域普通技术人员会赋予该术语的含义。",
+    usage: "would have to 在这里不是“不得不有”，而是“对于……而言会具有”。",
+    category: "12. 权利要求解释总则"
+  },
+  {
+    id: "ph-pattern-41",
+    pattern: "The person of ordinary skill is deemed to read the claim term in the context of the entire patent.",
+    chPattern: "本领域普通技术人员被视为在整件专利语境中阅读该权利要求术语",
+    example: "The person of ordinary skill in the art is deemed to read the claim term in the context of the entire patent.",
+    trans: "本领域普通技术人员被视为会在整件专利的语境中阅读该权利要求术语。",
+    usage: "is deemed to 是法律英语高频被动结构，可译“被视为”。",
+    category: "12. 权利要求解释总则"
+  },
+  {
+    id: "ph-pattern-42",
+    pattern: "We cannot look at the ordinary meaning of the term in a vacuum.",
+    chPattern: "不能脱离语境考察该术语的通常含义",
+    example: "We cannot look at the ordinary meaning of the term in a vacuum.",
+    trans: "我们不能脱离语境考察该术语的通常含义。",
+    usage: "in a vacuum 是判决分析中反对孤立解释文本的好表达。",
+    category: "12. 权利要求解释总则"
+  },
+  {
+    id: "ph-pattern-43",
+    pattern: "The specification is the single best guide to the meaning of a disputed term.",
+    chPattern: "说明书是理解争议术语含义的最佳单一指引",
+    example: "The specification is always highly relevant to the claim construction analysis and is usually the single best guide to the meaning of a disputed term.",
+    trans: "说明书对于权利要求解释分析始终高度相关，通常也是理解争议术语含义的最佳单一指引。",
+    usage: "single best guide 是 Phillips 中说明书地位的经典表达，可整句背诵。",
+    category: "13. 内在证据"
+  },
+  {
+    id: "ph-pattern-44",
+    pattern: "The prosecution history can often inform the meaning of the claim language.",
+    chPattern: "审查历史常可说明权利要求语言的含义",
+    example: "The prosecution history can often inform the meaning of the claim language by demonstrating how the inventor understood the invention.",
+    trans: "审查历史常可通过显示发明人如何理解该发明来说明权利要求语言的含义。",
+    usage: "inform 在判决中常译“说明、揭示、帮助理解”，不是“通知”。",
+    category: "13. 内在证据"
+  },
+  {
+    id: "ph-pattern-45",
+    pattern: "Extrinsic evidence is less significant than the intrinsic record.",
+    chPattern: "外在证据的重要性低于内在记录",
+    example: "Extrinsic evidence in general is less reliable than the patent and its prosecution history in determining how to read claim terms.",
+    trans: "一般而言，在确定如何解读权利要求术语时，外在证据不如专利及其审查历史可靠。",
+    usage: "less reliable / less significant 都是法院给证据排序时常用的评价词。",
+    category: "14. 外在证据"
+  },
+  {
+    id: "ph-pattern-46",
+    pattern: "Although the specification often describes very specific embodiments, we have repeatedly warned against confining the claims to those embodiments.",
+    chPattern: "尽管说明书常描述具体实施例，法院反复告诫不得将权利要求限于这些实施例",
+    example: "Although the specification often describes very specific embodiments of the invention, we have repeatedly warned against confining the claims to those embodiments.",
+    trans: "尽管说明书常常描述发明的非常具体的实施例，本院仍反复告诫不得将权利要求限制在这些实施例之内。",
+    usage: "Although..., we have repeatedly warned against... 是写“不宜读入限制”的核心句型。",
+    category: "15. 不得读入限制"
+  },
+  {
+    id: "ph-pattern-47",
+    pattern: "The purposes of the specification are to teach and enable those of skill in the art to make and use the invention.",
+    chPattern: "说明书的目的在于教导并使本领域技术人员能够制造和使用该发明",
+    example: "The purposes of the specification are to teach and enable those of skill in the art to make and use the invention.",
+    trans: "说明书的目的在于教导并使本领域技术人员能够制造和使用该发明。",
+    usage: "teach and enable 是专利说明书功能的经典二元表达。",
+    category: "15. 不得读入限制"
+  },
+  {
+    id: "ph-pattern-48",
+    pattern: "We affirm..., reverse..., dismiss..., and remand...",
+    chPattern: "本院维持……、撤销……、驳回……并发回……",
+    example: "We affirm the district court's judgment with respect to the trade secret claims, reverse with respect to the infringement claims, dismiss the cross-appeal, and remand.",
+    trans: "本院维持地区法院关于商业秘密请求的判决，撤销关于侵权请求的判决，驳回交叉上诉，并将案件发回。",
+    usage: "这是上诉法院结论段的骨架句型，affirm / reverse / dismiss / remand 要作为一组掌握。",
+    category: "16. 上诉结论"
   }
 ];

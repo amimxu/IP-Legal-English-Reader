@@ -29,6 +29,7 @@ function unwrapPdfSoftLineBreaks(text) {
       return lines.join(" ");
     })
     .join("\n\n")
+    .replace(/([A-Za-z0-9,'")\]?])\n\n([a-z(])/g, "$1 $2")
     .replace(/([。！？；])\s+(?=[“”《（\u4e00-\u9fff])/g, "$1\n\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
@@ -74,7 +75,7 @@ const fullEntries = [
     text: `#### Phillips v. AWH Corp. 英文原文全文
 
 ##### Reading Note
-This full-text opinion is extracted from the PDF you provided. It is now the main reading sample for the case. Click highlighted legal terms to jump back to the core vocabulary section.
+This full-text opinion is extracted from the PDF you provided. It is now the main reading sample for the case, with key legal terms marked for vocabulary review.
 
 ##### Opinion Text
 
@@ -126,11 +127,7 @@ ${chinese}`,
 
 \`\`\`
 本院维持地区法院关于商业秘密侵占请求的判决；撤销关于专利侵权问题的判决；驳回交叉上诉；并将侵权请求发回地区法院继续审理。
-\`\`\`
-
-##### Study Method
-
-先通读中文译文建立案件结构，再逐段读英文原文。每次只精读 2-3 页，把不熟悉的词汇回填到核心词汇页。`,
+\`\`\``,
   },
 ];
 
