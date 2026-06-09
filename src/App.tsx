@@ -27,6 +27,7 @@ import { litigationEnglishData } from "./data/litigationEnglishData";
 import { britishPhonetics } from "./data/britishPhonetics";
 import { phillipsTermDefinitionNotes } from "./data/phillipsTermDefinitionNotes";
 import { phillipsCommonDictionaryNotes } from "./data/phillipsCommonDictionaryNotes";
+import { ipCommonDictionaryNotes } from "./data/ipCommonDictionaryNotes";
 import { quizQuestions, matchItems, translationExercises, codeSampleQuiz } from "./data/exercisesData";
 import { Term, SentencePattern, QuizQuestion } from "./types";
 
@@ -38,9 +39,10 @@ const displayPhonetic = (term: { eng: string; phonetic: string }) =>
 const getDefinitionNote = (term: Term) =>
   {
     const legalNote = phillipsTermDefinitionNotes[term.eng];
+    const dictionaryNote = ipCommonDictionaryNotes[term.eng] ?? phillipsCommonDictionaryNotes[term.eng];
 
     return {
-      common: phillipsCommonDictionaryNotes[term.eng] ?? legalNote?.common ?? `${term.ch}。`,
+      common: dictionaryNote ?? legalNote?.common ?? `${term.ch}。`,
       legal: legalNote?.legal ?? (term.proTip || term.definition),
     };
   };
