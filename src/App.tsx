@@ -26,6 +26,7 @@ import { phillipsCaseSamplesData as samplesData } from "./data/phillipsCaseSampl
 import { litigationEnglishData } from "./data/litigationEnglishData";
 import { britishPhonetics } from "./data/britishPhonetics";
 import { phillipsTermDefinitionNotes } from "./data/phillipsTermDefinitionNotes";
+import { phillipsCommonDictionaryNotes } from "./data/phillipsCommonDictionaryNotes";
 import { quizQuestions, matchItems, translationExercises, codeSampleQuiz } from "./data/exercisesData";
 import { Term, SentencePattern, QuizQuestion } from "./types";
 
@@ -35,9 +36,13 @@ const displayPhonetic = (term: { eng: string; phonetic: string }) =>
   britishPhonetics[term.eng.toLowerCase()] ?? term.phonetic;
 
 const getDefinitionNote = (term: Term) =>
-  phillipsTermDefinitionNotes[term.eng] ?? {
-    common: `${term.ch}。`,
-    legal: term.proTip || term.definition,
+  {
+    const legalNote = phillipsTermDefinitionNotes[term.eng];
+
+    return {
+      common: phillipsCommonDictionaryNotes[term.eng] ?? legalNote?.common ?? `${term.ch}。`,
+      legal: legalNote?.legal ?? (term.proTip || term.definition),
+    };
   };
 
 export default function App() {
@@ -529,7 +534,7 @@ export default function App() {
                   </div>
 
                   {/* 2. Massive Elegant Title (Playfair Display) */}
-                  <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif text-brand-blue tracking-tight font-bold mb-3">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-brand-blue tracking-tight font-bold mb-3">
                     {selectedTerm.eng}
                   </h2>
 
