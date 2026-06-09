@@ -11,7 +11,6 @@ import {
   X, 
   HelpCircle, 
   Trophy, 
-  GraduationCap, 
   ArrowRight,
   CheckCircle2,
   Layers,
@@ -70,8 +69,6 @@ export default function App() {
   // State management for BILINGUAL ANALYSIS
   const [selectedPattern, setSelectedPattern] = useState<SentencePattern>(patternsData[0]);
   const [selectedPatternCategory, setSelectedPatternCategory] = useState<string>("all");
-  const [userTranslationAttempt, setUserTranslationAttempt] = useState<string>("");
-  const [showPatternAnswer, setShowPatternAnswer] = useState<boolean>(false);
 
   // State management for APPLICATION (contract click triggers)
   const [activeDocId, setActiveDocId] = useState<string>("ph-full-original");
@@ -835,57 +832,44 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Translation Playground */}
+                {/* Static model sentence */}
                 <div className="pt-6 border-t border-gray-100">
-                  <h4 className="text-sm font-bold text-brand-blue tracking-wide uppercase flex items-center space-x-1.5 mb-2">
-                    <GraduationCap className="h-5 w-5 text-brand-cyan" />
-                    <span>Translation Playground</span>
+                  <h4 className="text-sm font-bold text-brand-blue tracking-wide uppercase mb-3">
+                    示范句型 / Model Sentence
                   </h4>
-                  <p className="text-sm text-gray-500 mb-3">
-                    Re-write or re-arrange the example or craft your own draft using the structure above:
-                  </p>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div className="p-5 rounded-2xl bg-white border border-blue-100 shadow-sm">
+                      <p className="text-xs font-bold font-mono tracking-widest text-brand-cyan uppercase mb-2">
+                        Pattern Skeleton
+                      </p>
+                      <p className="text-base md:text-lg text-slate-950 font-semibold leading-relaxed">
+                        {selectedPattern.pattern}
+                      </p>
+                      <p className="text-sm md:text-base text-stone-700 mt-2 leading-relaxed">
+                        中文套用：{selectedPattern.chPattern}
+                      </p>
+                    </div>
 
-                  <textarea 
-                    value={userTranslationAttempt} 
-                    onChange={(e) => {
-                      setUserTranslationAttempt(e.target.value);
-                      setShowPatternAnswer(false);
-                    }}
-                    rows={3}
-                    placeholder="Enter your english formulation here..."
-                    className="w-full p-4 text-base bg-stone-50 border border-gray-200 rounded-xl focus:border-brand-cyan focus:bg-white outline-none transition"
-                  />
-
-                  {/* Micro-checking trigger */}
-                  <div className="mt-2 flex justify-between items-center">
-                    <p className="text-sm text-gray-500">
-                      Keywords included: {selectedPattern.pattern.split(" ").slice(0, 2).join(" ")}
-                    </p>
-
-                    <button
-                      onClick={() => setShowPatternAnswer(!showPatternAnswer)}
-                      className="text-sm font-bold text-brand-cyan hover:underline"
-                    >
-                      {showPatternAnswer ? "Hide Comparison" : "Compare with Official Standard"}
-                    </button>
-                  </div>
-
-                  {showPatternAnswer && (
-                    <motion.div 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      className="mt-4 p-4 bg-brand-cyan/5 rounded-xl border border-brand-cyan/10"
-                    >
-                      <h5 className="text-sm font-bold text-brand-blue mb-1">Standard Formulation:</h5>
-                      <p className="text-base font-sans text-slate-900 leading-relaxed mb-3">
+                    <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                      <p className="text-xs font-bold font-mono tracking-widest text-brand-cyan uppercase mb-2">
+                        Transfer Example
+                      </p>
+                      <p className="text-base md:text-lg text-slate-950 font-semibold leading-relaxed">
                         "{selectedPattern.example}"
                       </p>
-                      
-                      <div className="border-t border-brand-cyan/10 pt-2 text-sm text-stone-700 leading-relaxed">
-                        <span className="font-bold text-brand-blue">Drafting tip:</span> Pay key attention to punctuation (colons, semicolons) in lists. Semicolons are preferred in IP drafting lists.
-                      </div>
-                    </motion.div>
-                  )}
+                      <p className="text-sm md:text-base text-stone-700 mt-2 leading-relaxed">
+                        {selectedPattern.trans}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-4 rounded-2xl bg-brand-cyan/5 border border-brand-cyan/10">
+                    <p className="text-sm font-bold text-brand-blue mb-1">
+                      写作迁移
+                    </p>
+                    <p className="text-sm md:text-base text-stone-700 leading-relaxed">
+                      {selectedPattern.usage}
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -928,8 +912,6 @@ export default function App() {
                         key={pat.id}
                         onClick={() => {
                           setSelectedPattern(pat);
-                          setUserTranslationAttempt("");
-                          setShowPatternAnswer(false);
                         }}
                         className={`p-3.5 rounded-xl border text-left cursor-pointer transition ${
                           isSelected 
