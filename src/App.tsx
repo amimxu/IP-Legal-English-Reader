@@ -852,13 +852,13 @@ export default function App() {
 
                     <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
                       <p className="text-xs font-bold font-mono tracking-widest text-brand-cyan uppercase mb-2">
-                        Transfer Example
+                        Application Cue
                       </p>
                       <p className="text-base md:text-lg text-slate-950 font-semibold leading-relaxed">
-                        "{selectedPattern.example}"
+                        Keep the legal verb frame; replace the parties, claim terms, court action, evidence, or legal conclusion.
                       </p>
                       <p className="text-sm md:text-base text-stone-700 mt-2 leading-relaxed">
-                        {selectedPattern.trans}
+                        套用时保留核心法律谓语结构，再替换当事人、权利要求术语、法院动作、证据或法律结论。
                       </p>
                     </div>
                   </div>
