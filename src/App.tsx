@@ -837,30 +837,16 @@ export default function App() {
                   <h4 className="text-sm font-bold text-brand-blue tracking-wide uppercase mb-3">
                     示范句型 / Model Sentence
                   </h4>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="p-5 rounded-2xl bg-white border border-blue-100 shadow-sm">
-                      <p className="text-xs font-bold font-mono tracking-widest text-brand-cyan uppercase mb-2">
-                        Pattern Skeleton
-                      </p>
-                      <p className="text-base md:text-lg text-slate-950 font-semibold leading-relaxed">
-                        {selectedPattern.pattern}
-                      </p>
-                      <p className="text-sm md:text-base text-stone-700 mt-2 leading-relaxed">
-                        中文套用：{selectedPattern.chPattern}
-                      </p>
-                    </div>
-
-                    <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
-                      <p className="text-xs font-bold font-mono tracking-widest text-brand-cyan uppercase mb-2">
-                        Application Cue
-                      </p>
-                      <p className="text-base md:text-lg text-slate-950 font-semibold leading-relaxed">
-                        Keep the legal verb frame; replace the parties, claim terms, court action, evidence, or legal conclusion.
-                      </p>
-                      <p className="text-sm md:text-base text-stone-700 mt-2 leading-relaxed">
-                        套用时保留核心法律谓语结构，再替换当事人、权利要求术语、法院动作、证据或法律结论。
-                      </p>
-                    </div>
+                  <div className="p-5 rounded-2xl bg-white border border-blue-100 shadow-sm">
+                    <p className="text-xs font-bold font-mono tracking-widest text-brand-cyan uppercase mb-2">
+                      Pattern Skeleton
+                    </p>
+                    <p className="text-base md:text-lg text-slate-950 font-semibold leading-relaxed">
+                      {selectedPattern.pattern}
+                    </p>
+                    <p className="text-sm md:text-base text-stone-700 mt-2 leading-relaxed">
+                      中文套用：{selectedPattern.chPattern}
+                    </p>
                   </div>
                   <div className="mt-4 p-4 rounded-2xl bg-brand-cyan/5 border border-brand-cyan/10">
                     <p className="text-sm font-bold text-brand-blue mb-1">
